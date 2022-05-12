@@ -1,0 +1,316 @@
+
+\usepackage[acronym, nogroupskip]{glossaries}  %cite acronyms with \gls{} (or \gls*{} to not link) (automatic), \arclong{} for spelled out, \arcfull{} for spelled out plus abbr, define acronyms with \newacronym{WT}{WT}{Wind Tunnel}
+%nogroupskip prevents doubles spacing between letters in acronym glossary for AIAA style
+
+%this sets the link color of all glossary references:
+\newcommand\glossarylinkcolor{ultramarineblue}
+% \renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}}
+% \renewcommand*{\glstextformat}[1]{\textcolor{ultramarineblue}{#1}}
+\renewcommand*{\glstextformat}[1]{\textcolor{\glossarylinkcolor}{#1}}
+
+
+
+%------------------------------------------------
+% NOMENCLATURE GLOSSARY
+%-----------------------------------------------
+
+%https://tex.stackexchange.com/questions/386666/how-can-i-get-the-first-use-of-a-glossary-to-show-the-full-description
+
+% \newglossaryentry{alpha}{
+%     type=nom,
+%     name={a},
+%     description={angle of attack},
+%     first={angle of attack (a)}
+%     }
+% \gls{alpha}      --> "angle of attack (a)" then "a"
+% \glsdesc{alpha}  --> "angle of attack"
+% \Glsdesc{alpha}  --> "Angle of attack"
+% \GLSdesc{alpha}  --> "ANGLE OF ATTACK"
+% \glsname{alpha}  --> "a"
+
+
+%make nomenclature-specific glossary
+\newglossary{nom}{nom}{nml}{Nomenclature}
+
+%store nomenclature symbol with and without math operators
+\glsaddkey
+    {eqn}% new key
+    {\relax}% default value if "eqn" isn't used in \newglossaryentry
+    {\glsentryeqn}% description and eqn (DONT USE THIS)
+    {\Glsentryeqn}% analogous to \Glsentrytext
+    {\glseqn}% analogous to \glstext
+    {\Glseqn}% analogous to \Glstext
+    {\GLSeqn}% analogous to \GLStext
+
+%call nomenclature in an equation: `\( \eq{alpha} = 10^\circ \)'
+%    (dont color hyperlink because that looks bad)
+\newcommand{\eq}[1]{\glseqn*{#1}} %dont hyperlink because we want the equation to be one color
+% \newcommand{\eq}[2][]{\glseqn{#2}}
+
+%macro to make new nomenclature entries
+\newcommand{\newnom}[3]{
+    %args: tag, symbol, description
+    %Creates new nomenclature entry
+    \newglossaryentry{#1}{
+        type=nom,  %add to nomenclature glossary
+        name={\(#2\)}, %symbol (with math environment)
+        eqn={#2}, %symbol without equation operator, so you can call this in math environment
+        description={#3}, %text description
+        first={#3 (\(#2\))}, %first usage is "description" (symbol)
+        % #1%not sure why the fake first input needs to be here
+        }
+}
+
+%cite "description (symbol)"
+\newcommand{\glsall}[1]{\glsdesc{#1} (\glsname{#1})}
+\newcommand{\Glsall}[1]{\Glsdesc{#1} (\glsname{#1})}
+\newcommand{\glsallplural}[1]{\glsdescplural{#1} (\glsplural{#1})}
+
+
+
+\newglossaryentry{alpha}{
+    type=nom,
+    name={\(\alpha\)},
+    description={angle of attack},
+    first={angle of attack (\(\alpha\))},
+    eqn={\alpha}
+    }
+
+\newnom{t}{t}{time}
+\newnom{alphat}{\alpha_T}{total angle of attack}
+\newnom{alphadot}{\dot{\alpha}}{rate of angle of attack}
+\newnom{beta}{\beta}{side-slip angle}
+\newnom{thetas}{\theta_s}{polar angle}
+\newnom{phis}{\phi_s}{azimuthal angle}
+\newnom{phic}{\phi_c}{aerodynamic clocking angle}
+\newnom{phi}{\phi}{roll angle}
+\newnom{yaw}{\psi}{yaw angle}
+\newnom{theta}{\theta}{pitch/swing angle}
+\newnom{thetadot}{\dot{\theta}}{angular velocity}
+\newnom{thetadotdot}{\ddot{\theta}}{angular acceleration}
+\newnom{theta0}{\theta_{0}}{initial swing angle}
+\newnom{thetamax}{\theta_{max}}{maximum swing angle}
+\newnom{CA}{C_A}{axial force coefficient}
+\newnom{CN}{C_N}{normal force coefficient}
+% \newnom{CNm}{C_{N,m}}{missile-frame normal force coefficient}
+\newnom{Cd}{C_d}{drag coefficient}
+\newnom{Cm}{C_{m}}{pitching moment coefficient}
+% \newnom{Cmm}{C_{m,m}}{missile-frame pitching moment coefficient}
+\newnom{Mm}{M_{m}}{pitching moment}
+\newnom{L/D}{L/D}{lift-to-drag ratio}
+\newnom{CD}{C_D}{drag force coefficient}
+% \newnom{MYi}{\Sigma M_{Y_i}}{total pendulum moment}
+% \newnom{CMYi}{\Sigma C_{M,Y_i}}{total pendulum moment coefficient}
+% \newnom{CMZ}{\Sigma C_{M,Z}}{total azimuthal pendulum moment coefficient}
+% \newnom{Cdyn}{C_{dyn}}{coefficient increment due to dynamic effects}
+
+
+
+% \newnom{Faero}{\vec{F}_{aero}}{net aerodynamic force}
+\newnom{FA}{F_A}{axial force}
+\newnom{FN}{F_N}{normal force}
+
+\newnom{Re}{Re}{Reynolds number}
+\newnom{M}{M}{Mach number}
+\newnom{St}{St}{Strouhal number}
+\newnom{P}{P}{pressure}
+\newnom{Cp}{C_P}{pressure coefficient}
+\newnom{Cp0}{C_{P_0}}{stagnation pressure coefficient}
+\newnom{q}{\overline{q}}{dynamic pressure}
+\newnom{Cv}{C_v}{thermal energy coefficient}
+\newnom{rhoinf}{\rho_\infty}{freestream density}
+\newnom{Vinf}{V_\infty}{freestream velocity}
+\newnom{Veff}{V_{eff}}{effective velocity}
+\newnom{Vn}{V_{N}}{tangential swing velocity}
+\newnom{alphaeff}{\alpha_{eff}}{effective angle of attack}
+\newnom{rho}{\rho}{density}
+\newnom{V}{\vec{V}}{velocity}
+\newnom{Vmag}{V_{mag}}{total velocity magnitude}
+\newnom{g}{\vec{g}}{gravitational constant}
+\newnom{m}{m}{mass}
+\newnom{I}{I}{moment of inertia}
+\newnom{CT}{C_T}{thrust coefficient}
+
+\newnom{CO2}{\text{CO}_2}{carbon dioxide}
+
+\newnom{mu}{\mu}{dynamic viscosity}
+\newnom{uein}{\vec{u}}{Einstein notation velocity}
+\newnom{xein}{\vec{x}}{Einstein notation dimension}
+\newnom{grad}{\vec{\nabla}}{gradient function}
+
+% \newnom{}{d}{diameter}
+% \newnom{}{h}{Height}
+\newnom{vec}{\vec{(\,)}}{vector quantity}
+\newnom{mean}{\overline{(\,)}}{mean quantity (time-averaged)}
+\newnom{fs}{(\,)_{\infty}}{freestream quantity}
+\newnom{pert}{(\,)'}{perturbation quantity}
+\newnom{perD}{(\,)_D}{diameter-based reference length}
+\newnom{eini}{(\,)_i}{first Einstein notation index }
+\newnom{einj}{(\,)_j}{second Einstein notation index }
+% \newnom{}{()_c}{Chord-based reference length}
+
+\newnom{chuteframe}{|_{_{P}}}{parachute reference frame}
+
+
+\newnom{dswall}{\Delta s_w}{wall spacing}
+\newnom{muwall}{\mu_w}{wall viscosity}
+\newnom{rhowall}{\rho_w}{wall density}
+\newnom{utau}{u_\tau}{friction velocity}
+\newnom{tauwall}{\tau_w}{wall shear stress}
+
+
+
+
+%theta_s
+%CA
+%CN, CNm, Cm,
+%2D, 3D
+
+
+%from turb lit study:
+% $M$   & Mach number, N.D. \\
+% $Re$   & Reynolds number, N.D. \\
+% $\alpha$ & Angle of attack, deg\\
+% $\rho$ & Density, $kg/m^3$\\
+% $P$   & Pressure, $Pa$ \\
+% $\mu$   & Dynamic viscosity, $Pa \cdot s$ \\
+% $t$   & Time, $s$ \\
+% $V$   & Velocity, $m/s$ \\
+% $u$   & Einstein notation velocity, $m/s$ \\
+% $x$   & Einstein notation dimension, $m$ \\
+% $\nabla$   & Gradient function \\
+% $C_d$   & 2-Dimensional drag coefficient, N.D. \\
+% $d$   & Diameter, $m$ \\
+% $h$   & Height, $m$ \\
+% \multicolumn{2}{@{}l}{Subscripts}\\
+% $()_{\infty}$ & Freestream quantity\\
+% $\vec{()}$ & Vector quantity\\
+% $\overline{()}$ & Mean quantity (time-averaged)\\
+% $()'$      & Perturbation quantity\\
+% $()_D$     & Diameter-based reference length\\
+% $()_c$     & Chord-based reference length\\
+% $()_i$     & Einstein notation index \\
+% $()_j$     & Einstein notation index \\
+
+
+
+
+
+
+
+%------------------------------------------------
+% ACRONYM GLOSSARY
+%-----------------------------------------------
+
+
+% \setabbreviationstyle[acronym]{long-short}
+
+% \setacronymstyle{long-short-desc} %use this if you want to include descriptions as well. descriptions in glossary with `altlist'
+
+\newcommand{\newacr}[2]{\newacronym{#1}{#1}{#2}}%save time with duplicate entry
+\newacr{CFD}{Computational Fluid Dynamics}
+\newacr{NASA}{National Aeronautics and Space Administration}
+\newacr{AETC}{Aerosciences Evaluation and Test Capabilities}
+\newacr{STMD}{Space Technology Mission Directorate}
+\newacr{GCDP}{Game Changing Development Program}
+\newacr{DSS}{Descent System Study}
+\newacr{GMP}{Geometry Manipulation Protocol}
+\newacr{XML}{Extensible Markup Language}
+\newacr{DCF}{Domain Connectivity Function}
+\newacr{CGT}{Chimera Grid Tools}
+\newacr{MPCV}{Multi-Purpose Crew Vehicle}
+\newacr{HLLC}{Harten-Lax-van Leer-Contact}
+\newacr{HLLE++}{Harten-Lax-van Leer-Einfeldt}
+\newacr{SSOR}{Symmetric Successive Over-Relaxation}
+\newacr{RANS}{Reynolds-averaged Navier-Stokes}
+\newacr{URANS}{Unsteady Reynolds-averaged Navier-Stokes}
+\newacr{SST}{Shear Stress Transport}
+\newacr{CC}{compressibility correction}
+\newacr{RC}{rotation and curvature}
+\newacr{QCR}{Quadratic Constitutive Relation}
+\newacr{SA}{Spalart-Allmaras}
+\newacr{DES}{Detached Eddy Simulation}
+\newacr{LES}{Large Eddy Simulation}
+\newacr{TKE}{turbulence kinetic energy}
+\newacr{DNS}{Direct Numerical Simulation}
+\newacr{SGS}{Subgrid-Scale model}
+\newacr{FFT}{fast Fourier transform}
+\newacr{PSD}{Power Spectral Density}
+\newacr{ODE}{Ordinary Differential Equation}
+\newacr{WTT}{wind tunnel test}
+\newacr{NFAC}{National Full-scale Aerodynamics Complex}
+\newacr{LUPWT}{Langley Unitary Plan Wind Tunnel}
+\newacr{AMR}{Adaptive Mesh Refinement}
+\newacr{EDL}{Entry, Descent, and Landing}
+\newacr{FSI}{Fluid-structure Interaction}
+\newacr{IBM}{Immersed Boundary Method}
+\newacr{IMU}{Inertial Measurement Unit}
+\newacr{FBC}{Forward Bay Cover}
+\newacr{CG}{Center of Gravity}
+\newacr{COM}{Center of Mass}
+\newacr{CPU}{central processing unit}
+\newacr{HRVIP}{Human/Vehicle/Robotic Integration and Performance}
+\newacr{CPAS}{Capsule Parachute Assembly System}
+\newacr{CALA}{Canopy Loads Analysis}
+\newacr{PTV}{Parachute Test Vehicle}
+\newacr{DGB}{Disk-Gap-Band}
+\newacr{EDU}{Engineering Design Unit}
+\newacr{FBCP}{Forward Bay Cover Parachute}
+\newacr{SRP}{supersonic retropropulsion}
+\newacr{HIAD}{Hypersonic Inflatable Aerodynamic Decelerator}
+
+\newacr{BC}{boundary condition}
+
+
+
+%SSOR, HLLC, GUI, DoF
+
+
+
+\newcommand\nfac{\gls{NFAC} \(80^\prime\textrm{x}120^\prime\)~} % "NFAC 80'x120'"
+
+
+
+
+
+%I dont want a glossary for AIAA, just acronym tracking
+    %but I want glossary in thesis, so use these macros to keep track
+% %standard functionality:
+% \newcommand\myglsstr{\gls*}
+% \newcommand\mygls{\gls}
+% \newcommand\myacrfull{\acrfull}
+% \newcommand\myacrlong{\acrlong}
+% no linking:
+\newcommand\myglsstr{\gls*}
+\newcommand\mygls{\gls}
+\newcommand\myacrfull{\acrfull}
+\newcommand\myacrlong{\acrlong}
+
+
+
+
+
+
+
+%AIAA glossary table formatting (setting to specify with  \printglossary)
+\usepackage{longtable,tabularx}
+\setlength\LTleft{0pt}
+\newglossarystyle{aiaa}{%
+\setglossarystyle{long}% base this style on the long style
+\renewenvironment{theglossary}{%
+    \begin{longtable*}{@{}l @{\quad=\quad} l@{}}}%
+{\end{longtable*}}%
+}
+
+% \setglossarystyle{mylong} %set all glossaries to this style (or do individually in printglossaries)
+
+
+
+%---------------------------------------------
+% MAKE THE GLOSSARIES WORK:
+
+%If glossary doesn't appear, this command isn't running. To fix, execute `makeglossaries docname' in the main directory (where your latex document is `docname.tex')
+\makeglossaries
+
+% %spell out acronyms at the beginning of every chapter (makes sense for a long document like a thesis)
+% \preto\chapter{\glsresetall}

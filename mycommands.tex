@@ -1,0 +1,68 @@
+
+
+%GLOBAL VARIABLES
+\newcommand\remotepicdir{dummy}
+\newcommand\Karman{K\'arm\'an} %von Karman, with the accents
+
+%GLOBAL FUNCTIONS
+
+%`OVERFLOW' in small caps
+\newcommand\overflow{\textsc{Overflow}}
+%make a word look like code
+\newcommand{\codetxt}[1]{\texttt{#1}}
+%"C++" symbol
+\newcommand{\Cplusplus}{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\tiny\bf +}\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\tiny\bf +}}
+%"X-DoF" (Degrees of Freedom)
+\newcommand{\dof}[1]{\num{#1}-DoF}
+
+
+
+
+%EDITING TOOLS:
+
+%use this to make stuff a appear a draft
+\newcommand\redbox{\fcolorbox{red}{white}}
+
+%Draft Comments
+
+%boolean that turns on/off draft comments
+    %0: no draft comments, 1: draft comments, 2: draft comments and rough draft comments
+\newcommand\draftmode{1}
+%adds comment text in red and hides if draftmode off
+\ifnum\draftmode=2
+    %Draft Mode: show comment in red text
+    \newcommand{\draftcomment}[1]{\color{red}#1\color{black}}
+    \newcommand{\roughdraftcomment}[1]{\color{red}#1\color{black}}
+\else
+    \ifnum\draftmode=1
+        %Draft Mode: show comment in red text
+        \newcommand{\draftcomment}[1]{\color{red}#1\color{black}}
+        \newcommand{\roughdraftcomment}[1]{}
+    \else
+        %Production Mode: don't show the comment
+        \newcommand{\draftcomment}[1]{}
+        \newcommand{\roughdraftcomment}[1]{}
+    \fi
+\fi
+%colors sentences that need wordsmithing red unless final production mode
+\ifnum\draftmode=1
+    %Draft Mode: show comment in red text
+    \newcommand{\wordsmith}[1]{\color{red}#1\color{black}}
+\else
+    %Production Mode: show comment in black
+    \newcommand{\wordsmith}[1]{#1}
+\fi
+
+
+%use this flag to use low resolution images to reduce file size
+\newcommand\lowrez{0}
+
+
+
+
+
+% useful for drafts
+% line numbers:
+% http://www.ctan.org/tex-archive/help/Catalogue/entries/lineno.html
+%
+% \usepackage{lineno}

@@ -1,0 +1,391 @@
+\documentclass[conf]{new-aiaa}
+%\documentclass[journal]{new-aiaa} for journal papers
+
+
+
+
+
+
+
+
+
+%Refs
+\usepackage[hypcap,font=singlespacing]{caption} % customized captions with bold label and small, italic text, table captions are located above tables
+\usepackage{nameref}          %reference a section by name: `Sec.~\nameref{sec:intro}` --> 'Sec. Introduction'
+
+
+
+%--------------
+%IMAGE FORMATS
+\usepackage{graphicx}
+%Automatically Import from these Locations (MODIFY THESE FOR LOCATIONS SPECIFIC TO YOUR DOCUMENT******)
+\graphicspath{{./Images/}{./plots/}}
+\newcommand{\tablepath}{./tables/}
+%make `tablepath' work with autoimport:
+\makeatletter
+\newcommand{\includetable}[1]{%
+  \@ifundefined{tablepath}{%
+    \InputIfFileExists{#1}{}{}%
+  }{%
+    \InputIfFileExists{\tablepath/#1}{}{\InputIfFileExists{#1}{}{}}%
+  }
+}
+\makeatother
+\usepackage{float} %Force figures to exact location in doc (use '[H]' option)
+\usepackage{subcaption}       %allows captioning individual subfigures
+\usepackage{rotate}           %rotate/mirror images
+\usepackage[mode=buildnew]{standalone}% required for \includestandalone
+%%% compile with `pdflatex -shell-escape main` or `xelatex  -shell-escape main`
+%%% use `mode=buildnew' to recompile standalone with the main document,
+%%% use `mode=image' to import the image produced by compiling the standalone separately
+
+%Prettier Table Formatting
+\usepackage{booktabs}
+\usepackage{dcolumn}
+\newcolumntype{.}{D{.}{.}{-1}}
+% more space between table rows
+\renewcommand{\arraystretch}{1.2}
+
+%Tikz Diagrams
+\usepackage{tikz}             %for creating vector graphics diagrams
+\usetikzlibrary{backgrounds}  %put backgrounds behind tikz figures
+\usetikzlibrary{calc}         %perform calculations within $$
+\usetikzlibrary{positioning}  %position tikz elements using "right of, etc"
+\usetikzlibrary{angles}       %label angles between lines with arcs
+\usetikzlibrary{quotes}       %Put angle label in quotes
+\usetikzlibrary{patterns}     %Patterns to fill shapes with
+\usetikzlibrary{decorations.pathreplacing}     %get a curly brace for annotations
+
+%--------------
+%MATH FORMATS
+  %AIAA template uses `newtxmath' instead of `amsmath', `amssymb' (Times vs Computer Modern)
+    % \usepackage{amsmath}          % for formula writing (i.e. 'split', etc)
+    % \usepackage{amssymb}          % gives more math symbols (e.g. \lesssim)
+\usepackage{fixmath}          %gives \mathbold{} for vector notation
+\usepackage{cancel}           %draw lines through math to show "goes to zero"
+\usepackage{xfrac}            %allows slated and side fractions
+\usepackage{xfp}              %do math with \fpeval{1+2}
+\usepackage{bm}               %allow bold in math while maintaining italics
+\usepackage[super]{nth}       %easy 1st, 2nd, 3rd with \nth{1}, \nth{2}, etc
+
+\usepackage{textcomp}% for '\textdegree' macro
+\renewcommand{\vec}[1]{\mathbold{#1}} %Vector is bold
+\newcommand{\mat}[1]{\mathbbold{#1}}   %Matrix is bold and double-struck, use capital letter
+\newcommand\matr[1]{\mathbf{#1}} %Matrix variable is bold, non-itallic
+\newcommand\vect[1]{\bm{#1}}     %Vector variable is bold and itallic
+
+\usepackage{siunitx}                       %(automatic) SI number formatting
+\newcommand{\perc}[1]{\SI{#1}{\percent}}   %Easy way to write a percent in text or math (\perc{25} --> 25%)
+\newcommand{\degr}[1]{\SI{#1}{\degree}}    %Easy way to write a degree in text or math (\deg{25} --> 25^o)
+\DeclareSIUnit\inch{in}%not a default
+\DeclareSIUnit\feet{ft}
+\DeclareSIUnit\foot{ft}
+% \DeclareSIUnit\bps{bps}
+% \DeclareSIUnit\bits{bits}
+
+%--------------
+%TEXT FORMATS
+\usepackage[utf8]{inputenc} %more characters beyond ASCII
+\usepackage[english]{babel} %makes your document single language/culture-centric
+\usepackage{ulem}           %allows strikethrough text with \sout{}
+% \usepackage{indentfirst} %Indents first paragraph of chapter (because it indents every OTHER paragraph)
+
+% %Use Times New Roman font:
+% \usepackage[T1]{fontenc}
+% \usepackage{tgtermes}
+
+
+
+
+% ----------------------------------------
+% COLORS
+\usepackage{xcolor}
+\definecolor{MyDarkBlue}{rgb}{0,0.08,0.45}
+\definecolor{mypurple}{RGB}{65, 12, 136}
+\definecolor{myred}{RGB}{176, 12, 12}
+\definecolor{cornflowerblue}{RGB}{81, 112, 215}
+\definecolor{ultramarineblue}{RGB}{24, 5, 219} %better alternative to default blue
+%xkcd colors to match my python plots:
+\definecolor{bluexkcd}{HTML}{1f77b4}
+\definecolor{purplexkcd}{HTML}{825F87}
+\definecolor{orangexkcd}{HTML}{ff7f0e}
+\definecolor{redxkcd}{HTML}{cf0234}
+\definecolor{greenxkcd}{HTML}{2ca02c}
+%NASA COLORS
+\definecolor{nasared}{RGB}{252, 61, 33}
+%UC DAVIS COLORS
+\definecolor{ucdgold}{RGB}{201, 151, 0} %gold
+% \definecolor{ucdblue}{RGB}{0, 40, 85} %real ucd blue
+\definecolor{ucdblue}{RGB}{8, 76, 129} %ucd blue that doesn't look stupid
+
+
+% \definecolor{ucdorange}{RGB}{255,110,27} %real ucd orange
+\definecolor{ucdorange}{RGB}{201, 115, 0} %better than ucd orange
+\definecolor{ucdlightorange}{RGB}{255,143,40}
+\definecolor{ucdteal}{RGB}{0,119,139}
+
+
+
+
+
+% ----------------------------------------
+%HYPERLINKS (including urls, bibliography links, and glossary links)
+\makeatletter%(lets you use `@' symbol in below)
+\usepackage[pdftex,
+            % pdfauthor={\@author}, %lets you set the author in `title_and_frontmatter.tex'
+            % pdftitle={\@title},   %same as above
+            backref=page, %list the pages where cited next to the bibliography entry
+            %pdfsubject={Subject},
+            %pdfkeywords={Comma, List, Keywords},
+            %pdfproducer={Latex with hyperref, or other system},
+            %pdfcreator={pdflatex, or other tool}
+            ]{hyperref}
+\makeatother%(stops using `@' symbol)
+%hyperlink colors
+\hypersetup{
+	%driver=pdftex,
+	colorlinks=true,
+	urlcolor=ultramarineblue,
+	linkcolor=ultramarineblue,          % color of internal links
+    % linkcolor=black,          % color of internal links (e.g. \gls, \acrlong)
+    citecolor=ultramarineblue,        % color of links to bibliography (e.g. \cite, \citeauthor)
+    filecolor=magenta
+}
+%finer control over reference link color (to control glossary link color, see glossary.tex)
+\usepackage{xpatch}
+\xpretocmd{\cite}{\hypersetup{citecolor=ultramarineblue}}{}{}
+\xpretocmd{\citeauthor}{\hypersetup{citecolor=black}}{}{}
+\xpretocmd{\citeyear}{\hypersetup{citecolor=black}}{}{}
+\xpretocmd{\citep}{\hypersetup{citecolor=ultramarineblue}}{}{}
+\xpretocmd{\citet}{\hypersetup{citecolor=ultramarineblue}}{}{}
+%make glossaries link color in ToC
+\xpretocmd{\tableofcontents}{\renewcommand*{\glstextformat}{\color{ultramarineblue}}}{}{}
+\xapptocmd{\listoftables}{\renewcommand*{\glstextformat}{\color{black}}}{}{}
+%format back references in bibiliography so they dont look like part of the citation
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{{\footnotesize [%
+  \ifcase #1 Not cited%
+	\else Cited: #2%
+	\fi%
+]}}
+
+%Use an additional package to make bookmarks point to the top to tables, figures and listings
+\usepackage[all]{hypcap}
+
+
+
+
+% ----------------------------------------
+% Packages that Are Optional Depending on Content
+
+% %control paper size and margins:
+% \usepackage[letterpaper, margin=1in]{geometry}
+
+% allow some pages to be landscape
+\usepackage{lscape}
+
+%enable the listings package specifically for including programming code
+\usepackage{listings}
+%Special hack to make code listings not break pages (requires `float'), fyi they must be short then
+\floatstyle{plain} % optionally change the style of the new float
+\newfloat{Code}{H}{myc}
+
+% %Don't need bibliography formatting when using AIAA
+% \usepackage[numbers]{natbib} %`numbers' option numbers the refs in bib
+% % \renewcommand\bibname{References} % Renames bibiliography section title
+% \def\newblock{\hskip .11em plus.33em minus.07em}
+% \bibliographystyle{IEEEtranN} %IEEE bib format like a normal engineer
+
+
+%Citing Macros:
+%\cite: [num], \citet: Author [num], \citeauthor, \citeyear, \citeall (defined below)
+\def\citeall#1{\citeauthor{#1} (\citeyear{#1})~\cite{#1}} % e.g. `Author1 and Author2 (year) [num]` (only use with IEE)
+
+
+
+% ----------------------------------------
+% Packages that Are Probably Not Needed
+
+% more flexible definition of table environments
+\usepackage{ctable}
+
+
+
+% %caption stuff:
+% % modern method for setting up captions\
+% \captionsetup{margin=10pt,font=small,labelfont=bf}
+% %
+% % fix so that table captions have correct spacing
+% \captionsetup[table]{position=top}
+
+% %  fit more material on the page:
+% % reset some float-controlling parameters
+% \renewcommand{\floatpagefraction}{0.8}	% require fuller float pages
+
+% % N.B.: floatpagefraction MUST be less than topfraction !!
+% \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+% \renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+
+%Alex's customizations
+% \usepackage{datatool} %Allows import of csv and other data-tables
+\usepackage{varwidth}
+\usepackage{rotating}
+
+\usepackage{csquotes}
+\renewcommand\mkbegdispquote[2]{\leavevmode\llap{``}}
+\renewcommand\mkenddispquote[2]{#1''#2}
+
+\usepackage{mathtools}
+
+\usepackage{enumitem}
+
+%multi row/column tables:
+\usepackage{multirow}
+\usepackage{makecell}
+
+
+% \usepackage{flexisym}
+
+% \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+% \newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+% \newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+
+% \usepackage{pifont} %gives you dingbats font
+% \usepackage{newunicodechar}
+% \newunicodechar{✓}{\ding{51}}
+% \newunicodechar{✗}{\ding{55}}
+
+% \usepackage{adjustbox}
+% \usepackage[framemethod=tikz]{mdframed}
+
+
+
+
+
+% ----------------------------------------
+%GLOBAL VARIABLES AND MACROS
+%Get my custom variables and functions from a common location that thesis.tex and draft.tex can read
+\input{mycommands}
+
+\input{glossary}
+
+
+
+
+
+
+% ==============================================================================
+% ==============================================================================
+% ==============================================================================
+
+
+
+
+
+
+% \title{Supersonic Retropropulsion on HIAD Mars EDL Concept Vehicle Using OVERFLOW CFD Solver}
+\title{\LaTeX~Report Template}
+
+
+\author{Logan D. Halstrom\footnote{Aerospace Engineer, Systems Analysis Office (ARC-AA), AIAA Member, logan.halstrom@nasa.gov}}
+\affil{NASA Ames Reseach Center, Moffet Field, CA, 94035}
+\author{Author Two\footnote{Senior Research Scientist, Systems Analysis Office, AIAA Associate Fellow.}
+  , and Author C. Three\footnote{  Senior Research Scientist, Systems Analysis Office, AIAA Member.}}
+\affil{Science \& Technology Corporation, Moffett Field, CA, 94035}
+% \author{Third C. Author\footnote{Insert Job Title, Department Name, Address/Mail Stop, and AIAA Member Grade (if any) for third author.}}
+% \affil{Business or Academic Affiliation 2, City, Province, Zip Code, Country}
+% \author{Fourth D. Author\footnote{Insert Job Title, Department Name, Address/Mail Stop, and AIAA Member Grade (if any) for fourth author (etc.).}}
+% \affil{Business or Academic Affiliation 2, City, State, Zip Code}
+
+
+
+% -----------------------------------------
+% -----------------------------------------
+% -----------------------------------------
+
+\begin{document}
+
+\maketitle
+
+
+%===============================================================================
+\begin{abstract}
+\renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}} %whatever the glossary text color, we want uniform colors in the abstract
+
+The abstract is a high-level summary of the work, providing minimal, necessary background and reporting the main findings of the document.
+This is practice using an acronym: \gls{CFD} (the color of the glossary link should match the rest of the abstract).
+
+
+\renewcommand*{\glstextformat}[1]{\textcolor{\glossarylinkcolor}{#1}} %restore the original color for glossary links
+\end{abstract}
+
+%Reset acronym expansions after the abstract
+\glsresetall
+
+
+
+
+%===============================================================================
+\section{Nomenclature}
+
+
+% \singlespacing %glossaries have too much space by default
+
+
+%------------------------
+%NOMENCLATURE GLOSSARY
+    %nonumberlist: removes tally of pages where symbol was used
+    %nopostdot:    removes period after description in nomenclature table
+    %section title for AIAA format: raggedright for left-align, fontsize to match rest of doc, normalfont to remove bold, emph to itallicize
+    %do not set the style, because AIAA style is set in glossaries.tex
+\printglossary[type=nom, style=aiaa, title=\raggedright{\fontsize{10}{20}\normalfont\emph{Symbols}}, nonumberlist, nopostdot]
+
+\vspace*{-\baselineskip} %reduce space between glossaries
+
+%------------------------
+%ACRONYM GLOSSARY
+    %do not set the style, because AIAA style is set in glossaries.tex
+\printglossary[type=acronym, style=aiaa, title=\raggedright{\fontsize{10}{20}\normalfont\emph{Acronyms}}, nonumberlist, nopostdot]
+% \printglossaries[type=\acronymtype]
+
+
+
+
+
+
+%===============================================================================
+% SECTIONS
+%------------------------------
+\input{sections/introduction}
+% \input{sections/results}
+\input{sections/conclusion}
+
+
+
+% According to AIAA: An Appendix, if needed, should appear before the acknowledgments.
+
+
+%===============================================================================
+\section*{Acknowledgments}
+%===============================================================================
+
+Thanks \gls*{NASA}.
+
+
+%===============================================================================
+% \singlespacing
+\bibliography{lit}
+%===============================================================================
+
+
+
+
+% %===============================================================================
+% \input{sections/appendix}
+% %===============================================================================
+
+
+
+\end{document}

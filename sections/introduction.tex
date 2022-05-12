@@ -1,0 +1,83 @@
+\section{Introduction}\label{sec:intro}
+
+
+\lettrine{E}{ach} sentence of the document should be on one line to improve version control.
+You can use acronyms from the glossary like \gls{NASA}.
+They will be spelled out in their first use, then abbreviated there after like this: \gls{NASA}.
+By default, it will re-expand acronyms in the main body even if they were used in the abstract (You can also add behavior to redefine acronyms at each section).
+You can spell out an acronym at any time like this: \acrfull{NASA}.
+
+Basic citations look like this~\cite{halstrom2021aerodynamic}.
+Multi-citations look like this~\cite{halstrom2022overflow,halstrom2021investigation} or this~\cite{halstrom2022overflow,halstrom2021investigation,halstrom2021aerodynamic}.
+Also do, citeall, citeauthor, etc.
+
+
+
+Manual process to compile:
+\begin{itemize}
+  \item \textit{pdflatex main.tex (tx main.tex)}
+  \item \textit{bibtex main.aux}
+  \item \textit{makeglossaries main}
+  \item \textit{tx main.tex}
+\end{itemize}
+
+
+\noindent List of examples to add:
+\begin{itemize}
+  \item Examples of how to use each kind of citation macro (see google doc notes) %\cite: [num], \citet: Author [num], \citeauthor, \citeyear, \citeall (defined below)
+  \item also show all macros for glossary entries
+  \item explain how to change color of glossary lines (in the top of glossary.tex)
+  \item Examples of how to format numbers in text
+  \item table of font sizes
+  \item how to convert to word (open compiled pdf with word)
+  \item examples of subfigures
+\end{itemize}
+
+We can also reference figures, like the comparison of two vehicles (a low-\glsname{L/D} \gls{HIAD}~\cite{halstrom2022overflow} and mid-\glsname{L/D} CobraMRV vehicle~\cite{halstrom2022overflow,halstrom2021investigation,halstrom2021aerodynamic}), which can be found in Figure~\ref{fig:vehicleconcepts}.
+An in-line math example: \(M \sim 2\).
+
+\begin{figure}[htb] %choose best location in document
+% \begin{figure}[H] %force figure to this exact location
+\begin{center}
+    \newcommand\picW{0.49\textwidth}
+    \newcommand\picH{0.75\textwidth}
+    \begin{subfigure}{\picW}
+      \centering
+        %[trim=left bottom right top, clip]
+        \includegraphics[trim=0 0 0 0, clip, height=\picH]{dummy}
+        \caption{ Low-L/D HIAD }
+        \label{fig:hiadconcept}
+    \end{subfigure}
+    % \hspace*{\fill} %separation between subfigures
+    \begin{subfigure}{\picW}
+      \centering
+      \includegraphics[trim=0 0 0 0, clip, height=\picH]{Images/dummy.png}
+        \caption{ Mid-L/D CobraMRV }
+        \label{fig:cobraconcept}
+    \end{subfigure}
+    \caption{ Comparison of different vehicles (shows how to force images to a given height)~\cite{halstrom2021aerodynamic} }
+    \label{fig:vehicleconcepts}
+\end{center}
+\end{figure}
+
+You can also reference tables, like Table~\ref{tab:tableexample}.
+
+% \begin{table}[htb] %choose best location in document
+\begin{table}[H] %force figure to this exact location
+\begin{center}
+\caption{Example table of test conditions}
+\label{tab:tableexample}
+\begin{tabular}{r | l}
+Geometry      & \(1A, 1B, 1C, 1D, \boxed{1E, 1F}, 2A\) \\
+\((M,Re/ft)\) & \((1.000,1e1), (2.000,1e2), (3.000,1.5e2)\) \\
+\(\alpha\)    & \(\degr{0}, \degr{1}, \degr{2}\) \\
+\(C_T\)       & \(0.0, 0.1, 0.9, 1.0\) \\
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+Here is the last paragraph.
+You can reference other parts of the paper, such as Section~\ref{sec:conclusion}, which is the conclusion.
