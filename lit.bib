@@ -12,31 +12,64 @@ you may type a name in one of three forms:
 
 %%%%%%%%%%%%%%%%%
 
+@phdthesis{halstrom2021aerodynamic,
+  title = {Aerodynamic, {{Moving-Mesh Modeling}} of {{Parachute Pendulum Motion}}: {{Development}} and {{Validation}} of a {{CFD Methodology}}},
+  shorttitle = {Aerodynamic, {{Moving-Mesh Modeling}} of {{Parachute Pendulum Motion}}},
+  author = {Halstrom, Logan D.},
+  year = {2021},
+  url = {https://escholarship.org/uc/item/63q5t79v},
+  urldate = {2022-05-16},
+  abstract = {Parachutes are an essential design component of every crewed space vehicle currently in development.Some high-drag parachute designs have the potential to be inherently unstable and undergo pendulum motion in flight, subjecting the crew and cargo to additional hazards during landing. A fundamental understanding of the coupled dynamics and aerodynamics of parachutes is essential in order to design these descent systems safely. Traditionally, parachute design is accomplished through extensive flight and wind tunnel testing, but Computational Fluid Dynamics (CFD) modeling is an advancing tool that has the ability to provide additional insight into this analysis process. State-of-the-art computational techniques like Fluid-structure Interaction (FSI) provide the highest fidelity approximations of parachute flows but do not yet have the same level of confidence in the industry as rigid-body, Reynolds-averaged Navier-Stokes (RANS) CFD. This work applies the reliability and accuracy of structured, overset mesh CFD techniques to the parachute design process by simplifying the simulated parachute as a rigid, nonporous canopy. Validation of the acceptability of these simplifications is achieved through experimental comparison.The CFD solver OVERFLOW's built-in Geometry Manipulation Protocol (GMP) tool couples the discrete solution of the Navier-Stokes equations with explicit solution of 6-degree-of-freedom (DoF) dynamics equations, enabling relative motion of overset grids driven by integrated aerodynamic loads.This research details a method for utilizing this capability to simulate dynamic pendulum motion of a parachute, driven by the aerodynamics of the massively-separated, bluff-body wake. Validation of the functionality of GMP in modeling constrained, aerodynamically-driven, pendulum motion was established by simulating a 1-DoF, circular cylinder pendulum and comparing the resulting motion predictions to a analogous numerical model derived by assuming a constant drag coefficient for the cylinder. A simple parachute-analog geometry was also simulated in two and three dimensions to demonstrate the model's ability to predict multiple modes of motion driven by unsteady aerodynamics. Accuracies for the parachute pendulum CFD model were established by simulating a high-fidelity, rigid-shell model of the Orion Multi-Purpose Crew Vehicle (MPCV) main parachute, prescribed to move according to a fit equation of the motion observed in a 35\%-scale wind tunnel test of the same geometry. Similar magnitude and trends of the unsteady aerodynamic loads were confirmed and CFD model uncertainties were established by comparing relative differences. Finally, a parametric study of the effects of geometric porosity on dynamic stability was performed for the two-dimensional, simple parachute-analog geometry to demonstrate the ability of the model to predict dynamic stability characteristics of new designs.},
+  langid = {english},
+  school = {University of California, Davis}
+}
+
 @inproceedings{halstrom2021investigation,
-  title = {Investigation of {{Off}}-{{Body Motion Constraints}} in {{OVERFLOW Moving Mesh CFD Simulations}} of an {{Aerodynamic Pendulum}}},
+  title = {Investigation of {{Off-Body Motion Constraints}} in {{OVERFLOW Moving Mesh CFD Simulations}} of an {{Aerodynamic Pendulum}}},
   booktitle = {{{AIAA AVIATION}} 2021 {{FORUM}}},
   author = {Halstrom, Logan D. and Robinson, Stephen},
   year = {2021},
   month = aug,
   publisher = {{American Institute of Aeronautics and Astronautics}},
   address = {{VIRTUAL EVENT}},
-  url = {https://doi.org/10.2514/6.2021-2504},
+  doi = {10.2514/6.2021-2504},
   isbn = {978-1-62410-610-1},
-  language = {en},
+  langid = {english},
   myannotation = {parachute CFD rigid moving}
 }
 
-@phdthesis{halstrom2021aerodynamic,
-  title={Aerodynamic, Moving-Mesh Modeling of Parachute Pendulum Motion: Development and Validation of a CFD Methodology},
-  author={Halstrom, Logan D},
-  year={2021},
-  school={University of California, Davis}
+@inproceedings{halstrom2022overflow,
+  title = {{{OVERFLOW Analysis}} of {{Supersonic Retropropulsion Testing}} on a {{Blunt Mars Entry Vehicle Concept}}},
+  booktitle = {{{AIAA SCITECH}} 2022 {{Forum}}},
+  author = {Halstrom, Logan D. and Pulliam, Thomas H. and Childs, Robert and Stremel, Paul},
+  year = {2022},
+  month = jan,
+  publisher = {{American Institute of Aeronautics and Astronautics}},
+  address = {{San Diego, CA \& Virtual}},
+  doi = {10.2514/6.2022-0914},
+  isbn = {978-1-62410-631-6},
+  langid = {english},
+  mynote = {DSS Overflow HIAD},
 }
 
-@inproceedings{halstrom2022overflow,
+
+
+@inproceedings{ref1,
   title={OVERFLOW Analysis of Supersonic Retropropulsion Testing on a Blunt Mars Entry Vehicle Concept},
   author={Halstrom, Logan D and Pulliam, Thomas H and Childs, Robert and Stremel, Paul},
   booktitle={AIAA SCITECH 2022 Forum},
+  doi = {https://doi.org/10.2514/6.2021-2504},
   pages={0914},
+  year={2022}
+}
+
+@inproceedings{ref2,
+  title={OVERFLOW Analysis of Supersonic Retropropulsion Testing on a Blunt Mars Entry Vehicle Concept},
+  author={Halstrom, Logan D and Pulliam, Thomas H and Childs, Robert and Stremel, Paul},
+  booktitle={AIAA SCITECH 2022 Forum},
+  doi = {10.2514/6.2021-2504},
+  pages={0914},
+  annotation={annotation},
+  note={note},
   year={2022}
 }
